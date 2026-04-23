@@ -17,7 +17,7 @@ namespace LibraryManager.Models
 
         // Релация към вградения Identity потребител
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [Required]
         [Display(Name = "Date Borrowed")]
@@ -33,5 +33,6 @@ namespace LibraryManager.Models
         // Изчислено свойство за проверка на просрочие
         [NotMapped]
         public bool IsOverdue => !ReturnDate.HasValue && DateTime.UtcNow > DueDate;
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using LibraryManager.Services.Implementations;
+﻿using LibraryManager.Services.Contracts;
+using LibraryManager.Services.Implementations;
 using LibraryManagers.Core.Contracts;
 
 namespace LibraryManager.Services
@@ -9,6 +10,12 @@ namespace LibraryManager.Services
         {
 
             services.AddScoped<IBookService, BookService>();
+
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<IAuthorService, AuthorService>();
+
+            services.AddScoped<ILoanService,LoanService>();
 
             return services;
         }

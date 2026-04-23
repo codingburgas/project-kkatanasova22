@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LibraryManager.Services.Implementations
 {
 
-    namespace LibraryManager.Services.Implementations
-    {
+    
         public class AuthorService : IAuthorService
         {
             private readonly ApplicationDbContext _context;
@@ -94,4 +93,4 @@ namespace LibraryManager.Services.Implementations
             }
         }
     }
-}
+

@@ -2,11 +2,11 @@
 using LibraryManager.Data;
 using LibraryManager.DTOs.Book;
 using LibraryManager.Models;
-using LibraryManagers.Core.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using LibraryManager.Services.Contracts;
 
 namespace LibraryManager.Services.Implementations
 {

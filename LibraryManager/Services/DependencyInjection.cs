@@ -1,6 +1,5 @@
 ﻿using LibraryManager.Services.Contracts;
 using LibraryManager.Services.Implementations;
-using LibraryManagers.Core.Contracts;
 
 namespace LibraryManager.Services
 {
@@ -18,6 +17,8 @@ namespace LibraryManager.Services
             services.AddScoped<ILoanService,LoanService>();
 
             services.AddScoped<IAccountService,AccountService>();
+
+            services.AddScoped<IStatisticsService,StatisticsService>();
             return services;
         }
     }

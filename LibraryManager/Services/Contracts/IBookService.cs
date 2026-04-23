@@ -1,7 +1,7 @@
 ﻿
 using LibraryManager.DTOs.Book;
 
-namespace LibraryManagers.Core.Contracts
+namespace LibraryManager.Services.Contracts
 {
     public interface IBookService
     {

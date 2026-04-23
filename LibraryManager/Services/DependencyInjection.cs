@@ -17,6 +17,7 @@ namespace LibraryManager.Services
 
             services.AddScoped<ILoanService,LoanService>();
 
+            services.AddScoped<IAccountService,AccountService>();
             return services;
         }
     }

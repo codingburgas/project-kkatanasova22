@@ -8,11 +8,11 @@ namespace LibraryManager.Services.Implementations
 {
 
     
-        public class AuthorService : IAuthorService
+        public class AuthorsService : IAuthorService
         {
             private readonly ApplicationDbContext _context;
 
-            public AuthorService(ApplicationDbContext context)
+            public AuthorsService(ApplicationDbContext context)
             {
                 _context = context;
             }
@@ -91,6 +91,8 @@ namespace LibraryManager.Services.Implementations
             {
                 return await _context.Authors.AnyAsync(a => a.Id == id);
             }
+
+            
         }
     }
 

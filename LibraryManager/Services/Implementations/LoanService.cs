@@ -78,7 +78,7 @@ namespace LibraryManager.Services.Implementations
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<LoanListDto>> GetUserLoansAsync(string userId)
+        public async Task<IEnumerable<LoanListDto>> GetUserLoansAsync(Guid userId)
         {
             return await _context.Loans
                 .Where(l => l.UserId == userId)

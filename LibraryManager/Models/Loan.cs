@@ -13,7 +13,7 @@ namespace LibraryManager.Models
         public virtual Book Book { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         // Релация към вградения Identity потребител
         [ForeignKey(nameof(UserId))]

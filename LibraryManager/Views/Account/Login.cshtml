@@ -12,29 +12,31 @@
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="form-label font-weight-bold"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email address..." />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password" class="form-label font-weight-bold"></label>
+                <input asp-for="Password" class="form-control" placeholder="Enter your password..." />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div class="mb-3 form-check">
-                <input asp-for="RememberMe" class="form-check-input" />
-                <label asp-for="RememberMe" class="form-check-label"></label>
+                <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                <label asp-for="RememberMe" class="form-check-label">Remember me</label>
             </div>
 
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success btn-lg">Login</button>
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Login</button>
             </div>
         </form>
-        <p class="text-center mt-3">
-            New here? <a asp-action="Register">Create an account</a>
-        </p>
+
+        <div class="text-center mt-3">
+            <span class="text-muted">Don't have an account?</span>
+            <a asp-action="Register" class="text-decoration-none">Create one here</a>
+        </div>
     </div>
 </div>
 

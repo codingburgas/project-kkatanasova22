@@ -1,0 +1,119 @@
+﻿@using LibraryManager.DTOs.Statistics
+@model GeneralStatisticsDto
+
+@{
+    ViewData["Title"] = "Librarian Dashboard";
+    var topBooks = ViewBag.TopBooks as IEnumerable<BookReportDto>;
+    var overdueReaders = ViewBag.Overdue as IEnumerable<OverdueReaderDto>;
+}
+
+<div class="container-fluid mt-4">
+    <h1 class="h2 mb-4"><i class="bi bi-speedometer2"></i> Management Dashboard</h1>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Total Inventory</h6>
+                    <h2 class="display-6 fw-bold">@Model.TotalBooks</h2>
+                    <i class="bi bi-box-seam position-absolute end-0 bottom-0 p-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Active Loans</h6>
+                    <h2 class="display-6 fw-bold">@Model.ActiveLoans</h2>
+                    <i class="bi bi-arrow-left-right position-absolute end-0 bottom-0 p-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-dark shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Avg. Retention (Days)</h6>
+                    <h2 class="display-6 fw-bold">@Model.AverageLoanDurationDays.ToString("F1")</h2>
+                    <i class="bi bi-clock-history position-absolute end-0 bottom-0 p-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-primary"><i class="bi bi-graph-up"></i> Top 5 Most Borrowed Books</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @if (topBooks != null && topBooks.Any())
+                        {
+                            int rank = 1;
+                            foreach (var book in topBooks)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <div>
+                                        <span class="badge bg-secondary me-2">#@rank</span>
+                                        @book.Title
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">@book.TimesBorrowed times</span>
+                                </li>
+                                rank++;
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted text-center py-3">No data available yet.</p>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100 border-danger">
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Overdue Alerts</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Reader</th>
+                                    <th>Book</th>
+                                    <th class="text-danger">Delay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (overdueReaders != null && overdueReaders.Any())
+                                {
+                                    foreach (var reader in overdueReaders)
+                                    {
+                                        <tr>
+                                            <td class="ps-3 fw-bold">@reader.ReaderName</td>
+                                            <td class="small">@reader.BookTitle</td>
+                                            <td>
+                                                <span class="text-danger">@reader.DaysOverdue days</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4 text-muted">
+                                            No overdue books! Good job.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

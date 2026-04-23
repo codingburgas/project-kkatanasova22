@@ -12,7 +12,7 @@ namespace LibraryManager.Services
 
             services.AddScoped<ICategoryService, CategoryService>();
 
-            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IAuthorService, AuthorsService>();
 
             services.AddScoped<ILoanService,LoanService>();
 

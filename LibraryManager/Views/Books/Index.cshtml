@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LibraryManager.DTOs.Book.BookListDto>
+
+@{
+    ViewData["Title"] = "Library Catalog";
+}
+
+<h2 class="mb-4 text-primary"><i class="bi bi-book"></i> @ViewData["Title"]</h2>
+
+<div class="card bg-light mb-4 shadow-sm">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="row g-3">
+            <div class="col-md-5">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Search by title, author or ISBN..." value="@Context.Request.Query["searchQuery"]">
+            </div>
+            <div class="col-md-3">
+                <select name="genre" class="form-select">
+                    <option value="">All Categories</option>
+                    @* Тук може да се инжектира ICategoryService или да се ползва ViewBag *@
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var book in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title text-truncate">@book.Title</h5>
+                        @if (book.IsAvailable)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Borrowed</span>
+                        }
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">by @book.AuthorName</h6>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex gap-2">
+                    <a asp-action="Details" asp-route-id="@book.Id" class="btn btn-sm btn-outline-info w-100">Details</a>
+
+                    @if (User.Identity.IsAuthenticated && book.IsAvailable)
+                    {
+                        <form asp-controller="Loans" asp-action="Borrow" method="post" class="w-100">
+                            <input type="hidden" name="bookId" value="@book.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary w-100">Borrow</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+{
+    <div class="fixed-bottom p-4 text-end">
+        <a asp-action="Create" class="btn btn-lg btn-success shadow-lg"><i class="bi bi-plus-lg"></i> Add New Book</a>
+    </div>
+}

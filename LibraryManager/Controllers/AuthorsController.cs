@@ -2,7 +2,6 @@
 {
     using LibraryManager.DTOs.Author;
     using LibraryManager.Services.Contracts;
-    using LibraryManagers.Core.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +29,14 @@
             var success = await _authorService.DeleteAuthorAsync(id);
             if (!success) TempData["Error"] = "Cannot delete author with existing books.";
             return RedirectToAction(nameof(Index));
+        }
+        // ПРАВИЛНО
+        public async Task<IActionResult> Details(int id)
+        {
+            var author = await _authorService.GetAuthorByIdAsync(id);
+            if (author == null) return NotFound();
+
+            return View(author);
         }
     }
 }

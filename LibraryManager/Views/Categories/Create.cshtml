@@ -1,0 +1,35 @@
+﻿@model LibraryManager.DTOs.Category.CategoryInputDto
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white text-center py-3">
+                <h4 class="mb-0 text-uppercase" style="letter-spacing: 1px;">Add New Genre</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label fw-bold">Genre Name</label>
+                        <input asp-for="Name" class="form-control form-control-lg" placeholder="e.g. Science Fiction, Classics..." />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Save Category</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

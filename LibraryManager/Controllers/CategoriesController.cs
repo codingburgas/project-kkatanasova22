@@ -4,7 +4,6 @@ namespace LibraryManager.Controllers
 {
     using LibraryManager.DTOs.Category;
     using LibraryManager.Services.Contracts;
-    using LibraryManagers.Core.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 

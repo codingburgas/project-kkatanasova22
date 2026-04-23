@@ -14,7 +14,7 @@ namespace LibraryManager.Services.Contracts
         Task<IEnumerable<LoanListDto>> GetAllActiveLoansAsync();
 
         // Списък със заеманията на конкретен потребител (за Reader ролята)
-        Task<IEnumerable<LoanListDto>> GetUserLoansAsync(string userId);
+        Task<IEnumerable<LoanListDto>> GetUserLoansAsync(Guid userId);
 
         // Проверка дали книгата е свободна
         Task<bool> IsBookAvailableAsync(int bookId);

@@ -1,13 +1,146 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Library System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+            /* Оправяме разстоянието за фиксирания фуутър */
+            body {
+                margin-bottom: 80px;
+                background-color: #f8f9fa;
+            }
+
+            .footer {
+                height: 60px;
+                background-color: white;
+                z-index: 1030;
+            }
+
+            /* Ефекти за навигацията */
+            .navbar-brand {
+                letter-spacing: 1px;
+            }
+
+            .nav-link:hover {
+                color: #0d6efd !important;
+            }
+
+            .dropdown-menu {
+                border: none;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            }
+
+            /* Бутонът за регистрация */
+            .btn-auth-register {
+                background-color: #0d6efd;
+                color: white !important;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.3s;
+            }
+
+                .btn-auth-register:hover {
+                    background-color: #0b5ed7;
+                    transform: translateY(-1px);
+                }
+    </style>
 </head>
 <body>
-    <div>
-        @RenderBody()
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4 py-3">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-uppercase" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-book-half me-2"></i>LibraryMS
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Books" asp-action="Index">Catalog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Authors" asp-action="Index">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Categories" asp-action="Index">Genres</a>
+                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Loans" asp-action="MyLoans">My Books</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Management
+                                    </a>
+                                    <ul class="dropdown-menu shadow" aria-labelledby="adminDropdown">
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-speedometer2 me-2"></i>Statistics</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Loans" asp-action="Index"><i class="bi bi-journal-text me-2"></i>Active Loans</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="Books" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>Add New Book</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav align-items-center">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item me-3">
+                                <span class="nav-link text-light opacity-75 small">
+                                    <i class="bi bi-person-circle me-1"></i> @User.Identity.Name
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm px-3">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn-auth-register ms-lg-2 px-3" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-2">
+        <main role="main" class="pb-5">
+            @RenderBody()
+        </main>
     </div>
+
+    <footer class="footer border-top text-muted fixed-bottom d-none d-md-block shadow-lg">
+        <div class="container h-100 d-flex justify-content-center align-items-center">
+            <span>&copy; 2026 - <span class="text-dark fw-bold">Library Manager</span> - Project 11th Grade</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

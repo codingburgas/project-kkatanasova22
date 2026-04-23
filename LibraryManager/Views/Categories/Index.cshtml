@@ -1,0 +1,62 @@
+﻿@model IEnumerable<LibraryManager.DTOs.Category.CategoryListDto>
+
+@{
+    ViewData["Title"] = "Book Categories";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary"><i class="bi bi-tags"></i> @ViewData["Title"]</h2>
+                @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                {
+                    <a asp-action="Create" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> New Category
+                    </a>
+                }
+            </div>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <div class="list-group shadow-sm">
+                @foreach (var category in Model)
+                {
+                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
+                        <div>
+                            <h5 class="mb-1">@category.Name</h5>
+                            <small class="text-muted">Browse all books in this genre</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            @* Бутон за филтриране на книги по тази категория *@
+                            <a asp-controller="Books" asp-action="Index" asp-route-genre="@category.Name"
+                               class="btn btn-sm btn-outline-primary me-3">
+                                View Books
+                            </a>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                            {
+                                <form asp-action="Delete" asp-route-id="@category.Id" method="post"
+                                      onsubmit="return confirm('Delete this category?');">
+                                    <button type="submit" class="btn btn-sm btn-link text-danger p-0">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center mt-5">
+                    <p class="text-muted">No categories found. Start by adding one!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

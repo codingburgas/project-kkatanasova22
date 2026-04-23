@@ -4,7 +4,6 @@ namespace LibraryManager.Controllers
 {
     using LibraryManager.DTOs.Loan;
     using LibraryManager.Services.Contracts;
-    using LibraryManagers.Core.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
@@ -19,7 +18,11 @@ namespace LibraryManager.Controllers
         public async Task<IActionResult> MyLoans()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View(await _loanService.GetUserLoansAsync(userId));
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Challenge(); // Препраща към Login, ако случайно няма ID
+            }
+            return View(await _loanService.GetUserLoansAsync(Guid.Parse(userId)));
         }
 
         [Authorize(Roles = "Admin,Librarian")]
@@ -29,7 +32,7 @@ namespace LibraryManager.Controllers
         public async Task<IActionResult> Borrow(int bookId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = new LoanCreateDto { BookId = bookId, UserId = userId, DurationDays = 14 };
+            var model = new LoanCreateDto { BookId = bookId, UserId = Guid.Parse(userId), DurationDays = 14 };
 
             var success = await _loanService.BorrowBookAsync(model);
             if (!success) return BadRequest("Book is not available.");

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container mt-5">
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold text-primary">
+                <i class="bi bi-book-half"></i> Library Management System
+            </h1>
+            <p class="col-md-8 fs-4 mx-auto text-muted">
+                Welcome to your digital library. Manage books, track loans, and explore new authors with ease.
+            </p>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg px-4 gap-3">
+                        Get Started
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">
+                        Create Account
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Books" asp-action="Index" class="btn btn-primary btn-lg px-4">
+                        Browse Books
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch text-center">
+        <div class="col-md-4">
+            <div class="h-100 p-4 border rounded-3 bg-white shadow-sm">
+                <i class="bi bi-search fs-1 text-primary"></i>
+                <h2>Easy Search</h2>
+                <p>Find your favorite books by title, author, or ISBN in seconds.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="h-100 p-4 border rounded-3 bg-white shadow-sm">
+                <i class="bi bi-calendar-check fs-1 text-success"></i>
+                <h2>Loan Tracking</h2>
+                <p>Keep track of your borrowed books and never miss a due date.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="h-100 p-4 border rounded-3 bg-white shadow-sm">
+                <i class="bi bi-shield-lock fs-1 text-warning"></i>
+                <h2>Secure Access</h2>
+                <p>Role-based access for students, librarians, and administrators.</p>
+            </div>
+        </div>
+    </div>
+</div>

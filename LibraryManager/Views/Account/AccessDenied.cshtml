@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center shadow p-5 bg-light rounded">
+            <h1 class="display-1 text-danger"><i class="bi bi-shield-lock"></i></h1>
+            <h2 class="text-dark">403 - Access Denied</h2>
+            <p class="lead text-muted">
+                You do not have the necessary permissions to view this page.
+                Please contact your librarian if you believe this is a mistake.
+            </p>
+            <hr />
+            <div class="mt-4">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
+                    Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

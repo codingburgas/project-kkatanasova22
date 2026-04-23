@@ -1,6 +1,5 @@
 ﻿using LibraryManager.DTOs.Account;
 using LibraryManager.Services.Contracts;
-using LibraryManagers.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManager.Controllers

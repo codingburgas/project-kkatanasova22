@@ -29,6 +29,12 @@ namespace LibraryManager
             // 4. Твоите кастъм услуги (BookService и т.н.)
             builder.Services.AddServices();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Account/AccessDenied"; // Увери се, че имаш такъв Action в AccountController
+                options.LoginPath = "/Account/Login";
+            });
+
             var app = builder.Build();
 
             app.UseStaticFiles(); // Позволява ползването на CSS, JS и Bootstrap

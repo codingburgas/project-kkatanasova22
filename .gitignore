@@ -1,0 +1,46 @@
+## --- [ Ядро на .NET / Visual Studio ] ---
+bin/
+obj/
+/out/
+.vs/
+.vscode/
+_ReSharper*/
+*.user
+*.userosscache
+*.sln.doccache
+
+## --- [ JetBrains Rider ] ---
+.idea/
+*.sln.iml
+
+## --- [ Бази данни (SQLite и други) ] ---
+# Изключваме локалните SQLite бази данни
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Ако искаш да запазиш празна база в проекта, добави я ръчно, 
+# но по подразбиране тези файлове се игнорират.
+
+## --- [ ASP.NET Core ] ---
+appsettings.Development.json
+appsettings.Local.json
+*.Secrets.json
+dotnet-userscripts.xml
+/node_modules/
+
+## --- [ Публикуване и Логване ] ---
+*.log
+*.swp
+.DS_Store
+dist/
+publish/
+
+## --- [ Entity Framework Core ] ---
+# Позволяваме миграциите, но игнорираме временни файлове
+*.suo
+*.user
+*.userosscache
+*.sln.doccache
